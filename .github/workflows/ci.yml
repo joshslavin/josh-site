@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Type check
+        run: pnpm exec tsc -noEmit
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CHANNEL_HANDLE: ${{ secrets.YOUTUBE_CHANNEL_HANDLE }}
+          NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
+          NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ secrets.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
+          NEXT_PUBLIC_NEWSLETTER_PROVIDER: ${{ secrets.NEXT_PUBLIC_NEWSLETTER_PROVIDER }}
+          NEXT_PUBLIC_BEEHIIV_PUBLICATION_ID: ${{ secrets.NEXT_PUBLIC_BEEHIIV_PUBLICATION_ID }}
+          NEXT_PUBLIC_CONVERTKIT_FORM_ID: ${{ secrets.NEXT_PUBLIC_CONVERTKIT_FORM_ID }}
+        run: pnpm build

@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next / build
+.next/
+out/
+dist/
+.cache/
+.turbo/
+coverage/
+
+# contentlayer
+.contentlayer/
+
+# env & local
+.env*
+!.env.example
+.vercel/
+.DS_Store
