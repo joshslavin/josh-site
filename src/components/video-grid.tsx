@@ -1,4 +1,5 @@
 import { fetchChannelUploads } from "@/lib/youtube";
+import type { YTVideo } from "@/lib/youtube";
 
 export const revalidate = 600;
 
