@@ -4,9 +4,11 @@
   "version": "0.2.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "contentlayer build && next build",
     "start": "next start",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "preinstall": "corepack enable && corepack prepare pnpm@9.12.3 --activate",
+    "postinstall": "contentlayer postinstall"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,5 +30,6 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.9",
     "typescript": "^5.5.4"
-  }
+  },
+  "packageManager": "pnpm@9.12.3"
 }
