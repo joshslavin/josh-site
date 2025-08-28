@@ -1,21 +1,19 @@
-import { fetchChannelUploads } from "@/lib/youtube";
-import type { YTVideo } from "@/lib/youtube";
+import { withContentlayer } from "next-contentlayer";
 
-export const revalidate = 600;
+const nextConfig = {
+  reactStrictMode: true,
+  images: { domains: ["i.ytimg.com"] },
+  async redirects() {
+    return [
+      // Redirect all www traffic to apex (vercel handles https automatically)
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.joshuaslavin.com" }],
+        destination: "https://joshuaslavin.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
+};
 
-export default async function VideoGrid() {
-  const videos: YTVideo[] = await fetchChannelUploads({ maxResults: 6 });
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {videos.map((v: YTVideo) => (
-        <a key={v.id} href={`https://www.youtube.com/watch?v=${v.id}`} className="group">
-          <div className="aspect-video rounded-xl border overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={v.thumbnail} alt={v.title} className="h-full w-full object-cover group-hover:opacity-90" />
-          </div>
-          <h3 className="mt-2 text-sm font-medium line-clamp-2">{v.title}</h3>
-        </a>
-      ))}
-    </div>
-  );
-}
+export default withContentlayer(nextConfig);
