@@ -1,8 +1,6 @@
 import { fetchChannelUploads } from "@/lib/youtube";
 import type { YTVideo } from "@/lib/youtube";
 
-`const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL && !/^https?:///.test(process.env.NEXT_PUBLIC_SITE_URL) ? \
-
 export const revalidate = 600;
 
 export default async function VideoGrid() {
