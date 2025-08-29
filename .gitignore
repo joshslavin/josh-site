@@ -19,3 +19,7 @@ coverage/
 .vercel/
 .DS_Store
 .vercel
+
+# build info & generated sitemap
+tsconfig.tsbuildinfo
+public/sitemap*.xml
