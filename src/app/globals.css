@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand: 216 34% 17%;
+    --brand-2: 349 84% 47%;
+  }
+  ::selection { background-color: hsl(var(--brand-2)); color: white; }
+  a { text-underline-offset: 2px; }
+  a:hover { text-decoration-thickness: 2px; }
+}
+
+@layer components {
+  .card { @apply rounded-xl border bg-white/50 dark:bg-black/20 backdrop-blur-sm hover:shadow-md transition; }
+  .btn { @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition; }
+  .btn-primary { @apply text-white bg-[hsl(var(--brand-2))] hover:opacity-90; }
+  .btn-outline { @apply border hover:bg-black/5 dark:hover:bg-white/10; }
+}
